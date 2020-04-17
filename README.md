@@ -2,9 +2,9 @@
 
 ![Cover Image](cover.jpg)
 
-### Usage
+## Usage
 
-#### Play Bad Apple
+### Play Bad Apple
 
 1. Run `logisim-evolution.jar`
 
@@ -14,17 +14,17 @@
 
 4. Enable clock.
 
-#### Compile your own program
+### Compile your own program
 
 Working on it...
 
-### Notes
+## Notes
 
 - Only instructions used in `bad_apple.s` is tested. Other instructions are NOT guaranteed to be functional. Will be tested later.
 
 - Can achieve ~300 Hz clock rate on a i7-6700K computer.
 
-### Terms and Conditions
+## Terms and Conditions
 
 The software [Logisim-evoluion](https://github.com/reds-heig/logisim-evolution) is under [GNU GENERAL PUBLIC LICENSE](https://github.com/reds-heig/logisim-evolution/blob/master/LICENSE.md).
 
