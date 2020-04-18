@@ -2,13 +2,17 @@
 
 ![Cover Image](cover.jpg)
 
+---
+
+![Result Image](result.jpg)
+
 ## Usage
 
 ### Play Bad Apple
 
-1. Run `logisim-evolution.jar`
+1. Run `logisim-evolution.jar`.
 
-2. Open `32b_single_cycle_cpu.circ` in Logisim
+2. Open `32b_single_cycle_cpu.circ` in Logisim.
 
 3. Load IMEM and DMEM to the right memory modules. 
 
