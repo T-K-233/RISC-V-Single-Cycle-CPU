@@ -2920,7 +2920,10 @@ end TCL_Generic;&#13;
       <a name="bit22" val="none"/>
       <a name="bit23" val="none"/>
     </comp>
-    <comp lib="3" loc="(390,1490)" name="Comparator"/>
+    <comp lib="3" loc="(390,1490)" name="Comparator">
+      <a name="width" val="6"/>
+      <a name="mode" val="unsigned"/>
+    </comp>
     <comp lib="0" loc="(450,1480)" name="Bit Extender">
       <a name="in_width" val="1"/>
       <a name="out_width" val="24"/>
@@ -3006,8 +3009,8 @@ end TCL_Generic;&#13;
       <a name="bit21" val="none"/>
       <a name="bit22" val="none"/>
       <a name="bit23" val="none"/>
-      <a name="bit24" val="0"/>
-      <a name="bit25" val="0"/>
+      <a name="bit24" val="none"/>
+      <a name="bit25" val="none"/>
       <a name="bit26" val="0"/>
       <a name="bit27" val="0"/>
       <a name="bit28" val="0"/>
@@ -3019,7 +3022,7 @@ end TCL_Generic;&#13;
       <a name="width" val="32"/>
     </comp>
     <comp lib="0" loc="(350,1500)" name="Constant">
-      <a name="width" val="8"/>
+      <a name="width" val="6"/>
       <a name="value" val="0x0"/>
     </comp>
     <comp lib="8" loc="(655,465)" name="Text">
@@ -3222,18 +3225,14 @@ end TCL_Generic;&#13;
       <a name="bit21" val="none"/>
       <a name="bit22" val="none"/>
       <a name="bit23" val="none"/>
-      <a name="bit24" val="0"/>
-      <a name="bit25" val="0"/>
+      <a name="bit24" val="none"/>
+      <a name="bit25" val="none"/>
       <a name="bit26" val="0"/>
       <a name="bit27" val="0"/>
       <a name="bit28" val="0"/>
       <a name="bit29" val="0"/>
       <a name="bit30" val="0"/>
       <a name="bit31" val="0"/>
-    </comp>
-    <comp lib="0" loc="(80,860)" name="Constant">
-      <a name="width" val="8"/>
-      <a name="value" val="0x0"/>
     </comp>
     <comp lib="0" loc="(180,850)" name="Bit Extender">
       <a name="in_width" val="1"/>
@@ -3246,7 +3245,10 @@ end TCL_Generic;&#13;
       <a name="databus" val="bibus"/>
       <a name="label" val="DMEM"/>
     </comp>
-    <comp lib="3" loc="(120,850)" name="Comparator"/>
+    <comp lib="3" loc="(120,850)" name="Comparator">
+      <a name="width" val="6"/>
+      <a name="mode" val="unsigned"/>
+    </comp>
     <comp lib="0" loc="(70,990)" name="Constant"/>
     <comp lib="0" loc="(320,140)" name="Splitter">
       <a name="fanout" val="6"/>
@@ -5737,6 +5739,10 @@ end TCL_Generic;&#13;
       <a name="bit29" val="0"/>
       <a name="bit30" val="0"/>
       <a name="bit31" val="0"/>
+    </comp>
+    <comp lib="0" loc="(80,860)" name="Constant">
+      <a name="width" val="6"/>
+      <a name="value" val="0x0"/>
     </comp>
   </circuit>
 </project>

@@ -1,4 +1,4 @@
-lui gp, 4096
+lui gp, 0x4000
 addi s11, x0, 0
 
 loop:
@@ -21,6 +21,6 @@ sw s5, 20(gp)
 sw s6, 24(gp)
 sw s7, 28(gp)
 
-addi s11, s11, 8
+addi s11, s11, 32
 
 jal x0, loop
