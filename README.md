@@ -8,25 +8,25 @@
 
 ## Usage
 
-### Play Bad Apple
+### Display Bad Apple Video
 
-1. Run `logisim-evolution.jar`.
+0. Make sure [java](https://www.java.com/en/) is installed.
 
-2. Open `32b_single_cycle_cpu.circ` in Logisim.
+1. Run `logisim-evolution.jar` using Java.
 
-3. Load IMEM and DMEM to the right memory modules. 
+2. Open `32b_single_cycle_cpu.circ` or `32b_single_cycle_cpu_single_page.circ` in Logisim.
+
+3. Load IMEM and DMEM to the corresponding memory modules. 
 
 4. Enable clock.
 
-### Compile your own program
+### Assemble your own program
 
-Working on it...
+Please try the [Mercury](https://github.com/T-K-233/mercury) assembler
 
 ## Notes
 
-- Only instructions used in `bad_apple.s` is tested. Other instructions are NOT guaranteed to be functional. Will be tested later.
-
-- Can achieve ~300 Hz clock rate on a i7-6700K computer.
+- Single page version can achieve ~300 Hz clock rate on a i7-6700K computer.
 
 ## Terms and Conditions
 

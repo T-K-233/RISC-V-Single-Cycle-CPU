@@ -2932,7 +2932,8 @@ end TCL_Generic;&#13;
       <a name="fanout" val="1"/>
       <a name="incoming" val="32"/>
       <a name="appear" val="center"/>
-      <a name="bit1" val="0"/>
+      <a name="bit0" val="none"/>
+      <a name="bit1" val="none"/>
       <a name="bit2" val="0"/>
       <a name="bit3" val="0"/>
       <a name="bit4" val="0"/>
@@ -2955,8 +2956,8 @@ end TCL_Generic;&#13;
       <a name="bit21" val="0"/>
       <a name="bit22" val="0"/>
       <a name="bit23" val="0"/>
-      <a name="bit24" val="none"/>
-      <a name="bit25" val="none"/>
+      <a name="bit24" val="0"/>
+      <a name="bit25" val="0"/>
       <a name="bit26" val="none"/>
       <a name="bit27" val="none"/>
       <a name="bit28" val="none"/>
