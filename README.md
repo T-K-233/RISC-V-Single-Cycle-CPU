@@ -1,10 +1,10 @@
 # RISC-V Single Cycle CPU
 
-![Cover Image](cover.jpg)
+![Cover Image](docs/cover.jpg)
 
 ---
 
-![Result Image](result.jpg)
+![Result Image](docs/result.jpg)
 
 ## Usage
 
@@ -12,7 +12,7 @@
 
 0. Make sure [java](https://www.java.com/en/) is installed.
 
-1. Run `logisim-evolution.jar` using Java.
+1. Run `./bin/logisim-evolution.jar` using Java.
 
 2. Open `32b_single_cycle_cpu.circ` or `32b_single_cycle_cpu_single_page.circ` in Logisim.
 
@@ -30,6 +30,6 @@ Please try the [Mercury](https://github.com/T-K-233/mercury) assembler
 
 ## Terms and Conditions
 
-The software [Logisim-evoluion](https://github.com/reds-heig/logisim-evolution) is under [GNU GENERAL PUBLIC LICENSE](https://github.com/reds-heig/logisim-evolution/blob/master/LICENSE.md).
+The software [Logisim-evoluion](https://github.com/logisim-evolution/logisim-evolution) is released under the terms of the [GNU GENERAL PUBLIC LICENSE (GPL)](https://github.com/logisim-evolution/logisim-evolution/blob/master/LICENSE.md). For your convenience, the jar file is included in this repository in accordance with the redistribution guideline of the GPL-3.0 license agreement.
 
-This project is under GNU GENERAL PUBLIC LICENSE. Feel free to redistribute it and/or modify it under the terms of the GNU General Public License.
+This project is under MIT License. 
