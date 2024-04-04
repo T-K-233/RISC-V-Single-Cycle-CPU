@@ -11,6 +11,7 @@ module DataPath (
   output [31:0]               io_imem_addr,
   input  [31:0]               io_imem_rdata,
   output [31:0]               io_dmem_addr,
+  input  [3:0]                io_dmem_mask,
   output [31:0]               io_dmem_wdata,
   input  [31:0]               io_dmem_rdata,
 
@@ -22,6 +23,7 @@ module DataPath (
   input                       io_ctl_op1_sel,  // 0: rs1, 1: immediate
   input                       io_ctl_op2_sel,  // 0: rs2, 1: immediate
   input  [`ALU_SEL_WIDTH-1:0] io_ctl_alu_sel,
+  input                       io_ctl_mem_signed,
   input  [`WB_SEL_WIDTH-1:0]  io_ctl_wb_sel,
   input                       io_ctl_rf_wen,
   // input         io_ctl_csr_cmd   = Output(UInt(CSR.SZ.W))
@@ -100,6 +102,10 @@ module DataPath (
   wire signed [31:0] rs2_data_signed;
   wire [31:0] wb_data;
   wire rd_wen;
+
+  assign rs1_data_signed = rs1_data;
+  assign rs2_data_signed = rs2_data;
+
   assign rd_wen = io_ctl_rf_wen;
 
   RegFile regfile (
@@ -142,6 +148,7 @@ module DataPath (
 
   wire [31:0] alu_in_a;
   wire [31:0] alu_in_b;
+  wire [31:0] alu_out;
 
   assign alu_in_a = (
     (io_ctl_op1_sel == `OP1_SEL_RS1) ? rs1_data : 
@@ -172,10 +179,32 @@ module DataPath (
   wire [31:0] csr_rdata;
 
 
+  // Memory load data formatting
+  wire [31:0] load_data;
+
+  assign load_data = (
+    (io_dmem_mask == 'b1111) ? io_dmem_rdata :
+    (io_ctl_mem_signed && (io_dmem_mask == 'b0011)) ? {{16{io_dmem_rdata[15]}}, io_dmem_rdata[15:0]} :
+    (io_ctl_mem_signed && (io_dmem_mask == 'b1100)) ? {{16{io_dmem_rdata[31]}}, io_dmem_rdata[31:16]} :
+    (io_ctl_mem_signed && (io_dmem_mask == 'b0001)) ? {{24{io_dmem_rdata[7]}},  io_dmem_rdata[7:0]} :
+    (io_ctl_mem_signed && (io_dmem_mask == 'b0010)) ? {{24{io_dmem_rdata[15]}}, io_dmem_rdata[15:8]} :
+    (io_ctl_mem_signed && (io_dmem_mask == 'b0100)) ? {{24{io_dmem_rdata[23]}}, io_dmem_rdata[23:16]} :
+    (io_ctl_mem_signed && (io_dmem_mask == 'b1000)) ? {{24{io_dmem_rdata[31]}}, io_dmem_rdata[31:24]} :
+    (!io_ctl_mem_signed && (io_dmem_mask == 'b0011)) ? {{16'h0}, io_dmem_rdata[15:0]} :
+    (!io_ctl_mem_signed && (io_dmem_mask == 'b1100)) ? {{16'h0}, io_dmem_rdata[31:16]} :
+    (!io_ctl_mem_signed && (io_dmem_mask == 'b0001)) ? {{24'h0},  io_dmem_rdata[7:0]} :
+    (!io_ctl_mem_signed && (io_dmem_mask == 'b0010)) ? {{24'h0}, io_dmem_rdata[15:8]} :
+    (!io_ctl_mem_signed && (io_dmem_mask == 'b0100)) ? {{24'h0}, io_dmem_rdata[23:16]} :
+    (!io_ctl_mem_signed && (io_dmem_mask == 'b1000)) ? {{24'h0}, io_dmem_rdata[31:24]} :
+    'h0
+  );
+
+  assign io_dmem_wdata = rs2_data << (8 * io_dmem_addr[1:0]);
+
   // WB Mux
   assign wb_data = (
     (io_ctl_wb_sel == `WB_SEL_ALU) ? alu_out :
-    (io_ctl_wb_sel == `WB_SEL_MEM) ? io_dmem_rdata :
+    (io_ctl_wb_sel == `WB_SEL_MEM) ? load_data :
     (io_ctl_wb_sel == `WB_SEL_PC4) ? pc_4 :
     (io_ctl_wb_sel == `WB_SEL_CSR) ? csr_rdata :
     alu_out

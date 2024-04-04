@@ -36,7 +36,6 @@
 `define WEN_SEL_DISABLE 'h0
 `define WEN_SEL_ENABLE  'h1
 
-
 // ALU Operation Signal
 `define ALU_SEL_WIDTH   4
 `define ALU_SEL_ADD     4'h0
@@ -51,25 +50,10 @@
 `define ALU_SEL_SLTU    4'h9
 `define ALU_SEL_COPYB   4'hA
 
-
 // Memory Request Type (Read,Write,Fence) Signal
-`define MEMREQ_TYPE_WIDTH  1
-`define MEMREQ_TYPE_READ   'h0
-`define MEMREQ_TYPE_WRITE  'h1
-
-// // Memory Enable Signal
-// val MEN_0   = false.B
-// val MEN_1   = true.B
-// val MEN_X   = false.B
-
-// Memory Mask Type Signal
-`define MEM_MSK_WIDTH   3
-`define MEM_MSK_B       3'h0
-`define MEM_MSK_BU      3'h1
-`define MEM_MSK_H       3'h2
-`define MEM_MSK_HU      3'h3
-`define MEM_MSK_W       3'h4
-`define MEM_MSK_X       3'h4
+`define MEM_OP_WIDTH  1
+`define MEM_OP_READ   'h0
+`define MEM_OP_WRITE  'h1
 
 // Writeback Select Signal
 `define WB_SEL_WIDTH    2

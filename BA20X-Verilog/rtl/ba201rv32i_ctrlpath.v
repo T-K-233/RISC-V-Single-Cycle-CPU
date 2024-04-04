@@ -4,8 +4,10 @@ module ControlPath (
   input clk,
   input rst,
   
-  output io_dmem_type,
-  output [`MEM_MSK_WIDTH-1:0] io_dmem_wmask,
+
+  input  [1:0]                io_dmem_addr_offset,
+  output [`MEM_OP_WIDTH-1:0]  io_dmem_op,
+  output [3:0]                io_dmem_mask,
 
   // from data path
   input  [31:0] io_dat_inst,
@@ -25,6 +27,7 @@ module ControlPath (
   output                      io_ctl_op1_sel,  // 0: rs1, 1: immediate
   output                      io_ctl_op2_sel,  // 0: rs2, 1: immediate
   output [`ALU_SEL_WIDTH-1:0] io_ctl_alu_sel,
+  output                      io_ctl_mem_signed,
   output [`WB_SEL_WIDTH-1:0]  io_ctl_wb_sel,
   output                      io_ctl_rf_wen
   // output        io_ctl_csr_cmd   = Output(UInt(CSR.SZ.W))
@@ -251,24 +254,45 @@ module ControlPath (
     `IMM_SEL_R
   );
 
-  assign io_ctl_op1_sel = (opcode_is_auipc || opcode_is_type_j || opcode_is_type_b) ? `OP1_SEL_RS1 : `OP1_SEL_PC;
+  assign io_ctl_op1_sel = (opcode_is_auipc || opcode_is_type_j || opcode_is_type_b) ? `OP1_SEL_PC : `OP1_SEL_RS1;
 
   assign io_ctl_op2_sel = opcode_is_type_r ? `OP2_SEL_RS2 : `OP2_SEL_IMM;
 
   assign io_ctl_alu_sel = (
     inst_is_add  ? `ALU_SEL_ADD :
     inst_is_sub  ? `ALU_SEL_SUB :
-    inst_is_sll  ? `ALU_SEL_SLL :
-    inst_is_srl  ? `ALU_SEL_SRL :
-    inst_is_sra  ? `ALU_SEL_SRA :
-    inst_is_and  ? `ALU_SEL_AND :
-    inst_is_or   ? `ALU_SEL_OR :
-    inst_is_xor  ? `ALU_SEL_XOR :
-    inst_is_slt  ? `ALU_SEL_SLT :
-    inst_is_sltu ? `ALU_SEL_SLTU :
-    (inst_is_lui || opcode_is_sys) ? `ALU_SEL_COPYB :
+    (inst_is_sll || inst_is_slli)   ? `ALU_SEL_SLL :
+    (inst_is_srl || inst_is_srli)   ? `ALU_SEL_SRL :
+    (inst_is_sra || inst_is_srai)   ? `ALU_SEL_SRA :
+    (inst_is_and || inst_is_andi)   ? `ALU_SEL_AND :
+    (inst_is_or || inst_is_ori)     ? `ALU_SEL_OR :
+    (inst_is_xor || inst_is_xori)   ? `ALU_SEL_XOR :
+    (inst_is_slt || inst_is_slti)   ? `ALU_SEL_SLT :
+    (inst_is_sltu || inst_is_sltiu) ? `ALU_SEL_SLTU :
+    (inst_is_lui || opcode_is_sys)  ? `ALU_SEL_COPYB :
     `ALU_SEL_ADD
   );
+
+  assign io_dmem_op = (
+    opcode_is_load ? `MEM_OP_READ :
+    opcode_is_store ? `MEM_OP_WRITE :
+    `MEM_OP_READ
+  );
+
+  assign io_dmem_mask = (
+    (inst_is_sw || inst_is_lw) ? 4'b1111 :
+    ((inst_is_sh || inst_is_lh || inst_is_lhu) && (io_dmem_addr_offset == 'b00)) ? 4'b0011 :
+    // ((inst_is_sh || inst_is_lh || inst_is_lhu) && (io_dmem_addr_offset == 'b01)) ? 4'b0110 :
+    ((inst_is_sh || inst_is_lh || inst_is_lhu) && (io_dmem_addr_offset == 'b10)) ? 4'b1100 :
+    // ((inst_is_sh || inst_is_lh || inst_is_lhu) && (io_dmem_addr_offset == 'b11)) ? 4'b1001 :
+    ((inst_is_sb || inst_is_lb || inst_is_lbu) && (io_dmem_addr_offset == 'b00)) ? 4'b0001 :
+    ((inst_is_sb || inst_is_lb || inst_is_lbu) && (io_dmem_addr_offset == 'b01)) ? 4'b0010 :
+    ((inst_is_sb || inst_is_lb || inst_is_lbu) && (io_dmem_addr_offset == 'b10)) ? 4'b0100 :
+    ((inst_is_sb || inst_is_lb || inst_is_lbu) && (io_dmem_addr_offset == 'b11)) ? 4'b1000 :
+    4'b0000
+  );
+
+  assign io_ctl_mem_signed = inst_is_lw || inst_is_lh || inst_is_lb;
 
   assign io_ctl_wb_sel = (
     opcode_is_load ? `WB_SEL_MEM :
@@ -285,19 +309,6 @@ module ControlPath (
     (opcode_is_jal || opcode_is_jalr) ? `WEN_SEL_ENABLE :
     (inst_is_csrrc || inst_is_csrrs || inst_is_csrrw || inst_is_csrrci || inst_is_csrrsi || inst_is_csrrwi) ? `WEN_SEL_ENABLE :
     `WEN_SEL_DISABLE
-  );
-
-  assign io_dmem_type = (
-    opcode_is_load ? `MEMREQ_TYPE_READ :
-    opcode_is_store ? `MEMREQ_TYPE_WRITE :
-    `MEMREQ_TYPE_READ
-  );
-
-  assign io_dmem_wmask = (
-    (inst_is_sw || inst_is_lw) ? 4'b1111 :
-    (inst_is_sh || inst_is_lh || inst_is_lhu) ? 4'b0011 :
-    (inst_is_sb || inst_is_lb || inst_is_lbu) ? 4'b0001 :
-    4'b0000
   );
 
 endmodule
