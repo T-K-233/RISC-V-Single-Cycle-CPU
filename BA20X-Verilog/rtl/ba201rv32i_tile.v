@@ -1,18 +1,13 @@
-`include "ba201rv32i_consts.vh"
 
 module Tile (
-  input CLK100MHZ,
-  input ck_rst,
+  input clk,
+  input rst,
 
   output [3:0] led
 );
 
   wire clk;
   wire rst;
-
-  assign clk = CLK100MHZ;
-  assign rst = ~ck_rst;
-
 
   wire         io_interrupt;
 

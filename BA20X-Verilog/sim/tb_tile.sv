@@ -13,8 +13,8 @@ module TB_Tile();
   always #(CLOCK_PERIOD/2) clk = ~clk;
   
   Tile dut (
-    .CLK100MHZ(clk),
-    .ck_rst(~rst),
+    .clk(clk),
+    .rst(rst),
 
     .led()
   );
