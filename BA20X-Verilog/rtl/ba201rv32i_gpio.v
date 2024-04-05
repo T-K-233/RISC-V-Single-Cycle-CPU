@@ -15,7 +15,7 @@ module GPIO (
 
   reg [1:0] out_val;
 
-  assign gpio = out_val;
+  assign io_gpio = out_val;
 
   assign rdata = {30'h0, out_val};
 
@@ -24,8 +24,8 @@ module GPIO (
       out_val <= 2'h0;
     end
     else begin
-      if (op) begin
-        out_val <= wdata[1:0];
+      if (io_op) begin
+        out_val <= io_wdata[1:0];
       end
     end
   end

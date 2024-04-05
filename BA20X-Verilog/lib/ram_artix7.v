@@ -9,7 +9,7 @@ module RAM_Artix7 (
    input  [31:0]               io_dmem_addr,
    input                       io_dmem_type,
    input  [31:0]               io_dmem_wdata,
-   input  [`MEM_MSK_WIDTH-1:0] io_dmem_wmask,
+   input  [3:0]                io_dmem_wmask,
    output [31:0]               io_dmem_rdata
 );
 

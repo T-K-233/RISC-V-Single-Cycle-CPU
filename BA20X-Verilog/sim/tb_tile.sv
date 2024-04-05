@@ -12,22 +12,11 @@ module TB_Tile();
   initial clk = 'b0;
   always #(CLOCK_PERIOD/2) clk = ~clk;
   
-  reg test_passed = 1;
+  Tile dut (
+    .CLK100MHZ(clk),
+    .ck_rst(~rst),
 
-  Core dut (
-    .clk(clk),
-    .rst(rst),
-
-    .io_interrupt(1'b0),
-    .io_hart_id(4'h0),
-    .io_reset_vector(32'h0),
-
-    .io_imem_addr(),
-    .io_imem_rdata(0),
-    .io_dmem_addr(),
-    .io_dmem_wdata(),
-    .io_dmem_wmask(),
-    .io_dmem_rdata(0)
+    .led()
   );
 
   initial begin
@@ -42,17 +31,12 @@ module TB_Tile();
     @(posedge clk);
     
     
-    repeat(10) @(posedge clk);
+   repeat(10000) @(posedge clk);
     
     
-    if (test_passed) begin
-      $display("[TEST]\tAll tests passed.");
-    end else begin
-      $display("[TEST]\tSome tests failed.");
-    end
 
 
-    $finish();
+   $finish();
   end
 
 endmodule
