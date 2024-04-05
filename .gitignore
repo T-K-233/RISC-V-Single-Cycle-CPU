@@ -1,18 +1,9 @@
 
 ### Vivado ###
-# [dir]
-*.cache
-.metadata
-*.data
-*.ipdefs
-.Xil
-*.sdk
-*.hw
-*.ip_user_files
-
-### IP synth
-*_synth_*
-.jobs
-
-### project sim
-BA201RV32I-Arty.sim/*
+*.cache/
+*.gen/
+*.hw/
+*.ip_user_files/
+*.runs/
+*.sim/
+*.srcs/
