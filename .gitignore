@@ -7,3 +7,20 @@
 *.runs/
 *.sim/
 *.srcs/
+
+### VSCode ###
+.vscode/
+
+### Scala/Chisel ###
+.metals/
+.scala-build/
+csrc/
+out/
+
+### VCS Simulation ###
+novas_dump.log
+out.fsdb
+simv.daidir/
+simv
+ucli.key
+verdi_config_file
