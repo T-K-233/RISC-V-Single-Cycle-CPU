@@ -11,7 +11,7 @@ module ROM #(
   assign dout = mem[addr];
 
   initial begin
-    $readmemh("/scratch/vivado_projects/BAD-RISCV-CPU/BA20X-Verilog/software/firmware.mem", mem);
+    $readmemh("firmware.mem", mem);
   end
 
 endmodule
