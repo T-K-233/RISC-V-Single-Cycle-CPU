@@ -1,4 +1,4 @@
-`include "ba201rv32i_consts.vh"
+`include "consts.vh"
 
 /**
   * @brief ALU module
