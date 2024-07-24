@@ -16,6 +16,7 @@
 .scala-build/
 csrc/
 out/
+build/
 
 ### VCS Simulation ###
 novas_dump.log
