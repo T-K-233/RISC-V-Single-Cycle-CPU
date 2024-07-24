@@ -1,6 +1,6 @@
 `timescale 1ns/1ns
 
-`include "ba201rv32i_consts.vh"
+`include "consts.vh"
 
 `define REGFILE_PATH    dut.datapath.regfile.mem
 `define DMEM_PATH       dmem.mem

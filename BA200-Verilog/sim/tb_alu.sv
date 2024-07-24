@@ -1,6 +1,6 @@
 `timescale 1ns/1ns
 
-`include "ba201rv32i_consts.vh"
+`include "consts.vh"
 
 // test bench for ALU module
 module TB_ALU();
