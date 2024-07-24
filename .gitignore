@@ -7,6 +7,8 @@
 *.runs/
 *.sim/
 *.srcs/
+vivado*.jou
+vivado*.log
 
 ### VSCode ###
 .vscode/
